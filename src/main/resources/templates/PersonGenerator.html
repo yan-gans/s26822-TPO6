@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person generator</title>
+    <link rel="stylesheet" href="stylesheets/PersonGenerator.css">
+</head>
+<body>
+<div class="centered-container">
+    <h1 style="margin-top: 30px;">Person generator</h1>
+    <form action="/personGenerate" method="post" class="form-container">
+        <div class="input-group">
+            <label for="Number">Number:</label>
+            <input min="0" type="number" id="Number" name="Number">
+        </div>
+        <div class="input-group">
+            <label for="Lang">Lang:</label>
+            <select id="Lang" name="Lang">
+                <option th:each="desc,stat: ${data.languagedesc}" th:value="${desc}" th:text="${desc}"></option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="Attribute">Attribute:</label>
+            <select id="Attribute" name="Attribute" multiple>
+                <option th:each="desc,stat: ${data.codedesc}" th:value="${stat.index+1}" th:text="${desc}"></option>
+            </select>
+        </div>
+        <button type="submit">Generate</button>
+    </form>
+    <div class="table-sheet" th:if="${data.personList.size() != 0}" >
+        <audio autoplay loop>
+            <source src="try85.mp3" type="audio/mpeg">
+        </audio>
+        <table>
+            <tr th:switch="${data.lang}">
+                <div th:case="ru">
+                    <th th:each="header : ${data.headers.get('ru')}" th:text="${header}"></th>
+                </div>
+                <div  th:case="'de'">
+                    <th th:each="header : ${data.headers.get('de')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'fr'">
+                    <th th:each="header : ${data.headers.get('fr')}"  th:text="${header}"></th>
+                </div>
+                <div th:case="'en'">
+                    <th th:each="header : ${data.headers.get('en')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'ja'">
+                    <th th:each="header : ${data.headers.get('ja')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'es'">
+                    <th th:each="header : ${data.headers.get('es')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'it'">
+                    <th th:each="header : ${data.headers.get('it')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'pt'">
+                    <th th:each="header : ${data.headers.get('pt')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'ar'">
+                    <th th:each="header : ${data.headers.get('ar')}" th:text="${header}"></th>
+                </div>
+                <div th:case="'id'">
+                    <th th:each="header : ${data.headers.get('id')}" th:case="'id'" th:text="${header}"></th>
+                </div>
+            </tr>
+            <tr th:each="person : ${data.personList}">
+                <td th:each="attribute : ${person.getAttributes()}" th:text="${attribute}"></td>
+            </tr>
+        </table>
+
+        <img src="alex.gif" alt="Right Image" style="position: absolute; bottom: 10px; right: 10px;">
+        <img src="bill.png" alt="Right Image" style="position: absolute; bottom: 350px; right: 10px;">
+        <img src="mew.png" alt="Left Image" style="position: absolute; bottom: 350px; left: 10px;">
+        <img src="lizard.gif" alt="Left Image" style="position: absolute; bottom: 10px; left: 10px;">
+    </div>
+</div>
+<img src="rightg.png" alt="Right Image" style="position: absolute; top: 10px; right: 10px;">
+<img src="leftg.png" alt="Left Image" style="position: absolute; top: 10px; left: 10px;">
+
+</body>
+</html>
